@@ -1,0 +1,14 @@
+answers.cpp
+answers.h
+config.cpp
+config.h
+CLKernel.cpp
+CLKernel.h
+problem.cpp
+problem.h
+timer.cpp
+timer.h
+full.cpp
+single.cpp
+Makefile
+solver.cfg

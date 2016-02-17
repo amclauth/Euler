@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<project name="Euler (Java)" basedir="." default="main">
+	
+	<property name="src.dir" value="src:test"/>
+	<property name="test.dir" value="test"/>
+	<property name="build.dir" value="build"/>
+	<property name="classes.dir" value="${build.dir}/classes"/>
+	<property name="jar.dir" value="."/>
+	<path id="classpath">
+		<fileset dir="." includes="lib/*.jar" />
+	</path>
+
+	<target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath">
+			<exclude name="**/com/andymac/**"/>
+		</javac>
+    </target>
+	
+	<target name="SingleJar" description="Create Jar for Single" depends="compile">
+		<mkdir dir="${jar.dir}"/>
+		<jar destfile="${jar.dir}/single.jar" basedir="${classes.dir}">
+			<manifest>
+				<attribute name="Main-Class" value="base.Single"/>
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="FullJar" description="Create Jar for Single" depends="compile">
+		<mkdir dir="${jar.dir}"/>
+		<jar destfile="${jar.dir}/full.jar" basedir="${classes.dir}">
+			<manifest>
+				<attribute name="Main-Class" value="base.Full"/>
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="single" depends="SingleJar">
+		<java jar="${jar.dir}/single.jar" fork="true"/>
+	</target>
+
+	<target name="full" depends="FullJar">
+		<java jar="${jar.dir}/full.jar" fork="true"/>
+	</target>
+
+	<target name="clean-build" depends="clean,SingleJar,FullJar"/>
+
+	<target name="main" depends="clean,SingleJar,FullJar"/>
+	
+</project>
